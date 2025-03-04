@@ -84,6 +84,24 @@ This Packer configuration expects an Ansible repository with the following struc
 
 The Ansible playbook should handle the installation and configuration of all ML-related tools and dependencies.
 
+It can be cloned from github (see below for configuring github access).
+
+## Environment Configuration
+
+This project uses environment variables for sensitive configuration.
+
+1. Copy the example environment file:
+```sh
+cp .env.example .env
+```
+
+2. Edit the .env file and add your GitHub personal access token:
+```sh
+GITHUB_TOKEN=your_github_token_here
+```
+
+3. Ensure your .env file is never committed to git (it should be gitignored by default)
+
 ## Cost Efficiency
 
 This build process is optimized for cost efficiency:
