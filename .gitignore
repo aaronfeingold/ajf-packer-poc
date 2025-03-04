@@ -4,3 +4,8 @@ __pycache__/
 *.pyc
 secret.json
 secrets/
+*.tfstate
+*.tfstate.backup
+.terraform/
+.packer_cache/
+output-*/
