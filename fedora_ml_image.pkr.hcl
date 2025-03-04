@@ -40,7 +40,7 @@ build {
   # Clone the Ansible repository
   provisioner "shell" {
     inline = [
-      "git clone ${var.ansible_repo} ~/ansible-repo",
+      "git clone https://${var.github_token}@github.com/${var.ansible_repo}.git ~/ansible-repo",
       "cd ~/ansible-repo",
       "chmod +x setup/prerequisites",
       "./setup/prerequisites",

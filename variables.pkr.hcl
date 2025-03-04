@@ -18,7 +18,7 @@ variable "instance_type" {
 
 variable "ansible_repo" {
   type        = string
-  default     = "https://github.com/aaronfeingold/ajf-ansible.git"
+  default     = "aaronfeingold/ajf-ansible"
   description = "The Git repository URL for the Ansible playbooks"
 }
 
