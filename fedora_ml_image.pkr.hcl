@@ -28,12 +28,10 @@ source "amazon-ebs" "fedora" {
 build {
   sources = ["source.amazon-ebs.fedora"]
 
-  # Run bootstrap script to install prerequisites
   provisioner "shell" {
     inline = [
       "sudo dnf update -y",
       "sudo dnf install -y git ansible python3 python3-pip",
-      "mkdir -p ~/ansible-playbooks"
     ]
   }
 
@@ -42,26 +40,17 @@ build {
     inline = [
       "git clone https://${var.github_token}@github.com/${var.ansible_repo}.git ~/ansible-repo",
       "cd ~/ansible-repo",
-      "chmod +x setup/prerequisites",
-      "./setup/prerequisites",
       "chmod +x run_playbook",
       "./run_playbook"
     ]
   }
 
-  # Clean up
   provisioner "shell" {
     inline = [
-      # Remove git repositories and temporary files
       "rm -rf ~/ansible-repo",
-
-      # Clean package cache to reduce image size
       "sudo dnf clean all",
-
-      # Clear bash history
       "cat /dev/null > ~/.bash_history",
       "history -c",
-
       "echo 'Cleanup complete'"
     ]
   }
