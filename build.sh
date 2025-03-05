@@ -10,7 +10,7 @@ fi
 # Default values
 INSTANCE_TYPE="t3.medium"
 REGION="us-east-1"
-ANSIBLE_REPO="aaronfeingold/ajf-ansible"
+ANSIBLE_REPO="aaronfeingold/ajf-fedora-workstation-ansible"
 SOURCE_AMI="ami-09722669c73b517f6"
 AMI_NAME="ajf-fedora-ml-training"
 GITHUB_TOKEN=${GITHUB_TOKEN:-""}  # Use env var if available
