@@ -6,7 +6,7 @@ variable "aws_region" {
 
 variable "ami_name" {
   type        = string
-  default     = "ajf-fedora-ml-training"
+  default     = "ajf-base-ami"
   description = "The name prefix for the generated AMI"
 }
 
