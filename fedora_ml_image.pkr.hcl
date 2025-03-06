@@ -16,6 +16,13 @@ source "amazon-ebs" "fedora" {
   communicator  = "ssh"
   ssh_timeout   = "20m"
 
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"  // This is the typical root device for Fedora AMIs
+    volume_size = 20           // Increase this to a larger value like 20GB or more
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
+
   tags = {
     Name        = var.ami_name
     Environment = "development"
@@ -30,7 +37,6 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo dnf update -y",
       "sudo dnf install -y git ansible python3 python3-pip",
     ]
   }
@@ -40,6 +46,7 @@ build {
     inline = [
       "git clone https://${var.github_token}@github.com/${var.ansible_repo}.git ~/ansible-repo",
       "cd ~/ansible-repo",
+      "git checkout refactor",
       "chmod +x run_playbook",
       "./run_playbook"
     ]
