@@ -6,7 +6,7 @@ variable "aws_region" {
 
 variable "ami_name" {
   type        = string
-  default     = "ajf-fedora-ml-training"
+  default     = "ajf-base-ami"
   description = "The name prefix for the generated AMI"
 }
 
@@ -18,7 +18,7 @@ variable "instance_type" {
 
 variable "ansible_repo" {
   type        = string
-  default     = "aaronfeingold/ajf-ansible"
+  default     = "aaronfeingold/ajf-fedora-workstation-ansible"
   description = "The Git repository URL for the Ansible playbooks"
 }
 
@@ -26,4 +26,9 @@ variable "source_ami" {
   type        = string
   default     = "ami-09722669c73b517f6"
   description = "The source AMI ID (Fedora-Cloud-Base-AmazonEC2-41-1.4-x86_64)"
+}
+variable "github_token" {
+  type        = string
+  default     = "github_token"
+  description = "A fine-grained github token for cloning the Ansible repository"
 }

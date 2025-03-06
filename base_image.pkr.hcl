@@ -16,6 +16,13 @@ source "amazon-ebs" "fedora" {
   communicator  = "ssh"
   ssh_timeout   = "20m"
 
+  launch_block_device_mappings {
+    device_name = "/dev/sda1"
+    volume_size = 80
+    volume_type = "gp3"
+    delete_on_termination = true
+  }
+
   tags = {
     Name        = var.ami_name
     Environment = "development"
@@ -28,12 +35,9 @@ source "amazon-ebs" "fedora" {
 build {
   sources = ["source.amazon-ebs.fedora"]
 
-  # Run bootstrap script to install prerequisites
   provisioner "shell" {
     inline = [
-      "sudo dnf update -y",
       "sudo dnf install -y git ansible python3 python3-pip",
-      "mkdir -p ~/ansible-playbooks"
     ]
   }
 
@@ -42,26 +46,18 @@ build {
     inline = [
       "git clone https://${var.github_token}@github.com/${var.ansible_repo}.git ~/ansible-repo",
       "cd ~/ansible-repo",
-      "chmod +x setup/prerequisites",
-      "./setup/prerequisites",
+      "git checkout refactor",
       "chmod +x run_playbook",
-      "./run_playbook"
+      "./run_playbook \"--tags base\" true" // Run the base playbook and add the cdnvm to user bashrc
     ]
   }
 
-  # Clean up
   provisioner "shell" {
     inline = [
-      # Remove git repositories and temporary files
       "rm -rf ~/ansible-repo",
-
-      # Clean package cache to reduce image size
       "sudo dnf clean all",
-
-      # Clear bash history
       "cat /dev/null > ~/.bash_history",
       "history -c",
-
       "echo 'Cleanup complete'"
     ]
   }
