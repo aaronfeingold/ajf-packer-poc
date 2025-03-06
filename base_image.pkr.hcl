@@ -48,7 +48,7 @@ build {
       "cd ~/ansible-repo",
       "git checkout refactor",
       "chmod +x run_playbook",
-      "./run_playbook"
+      "./run_playbook \"--tags base\" true" // Run the base playbook and add the cdnvm to user bashrc
     ]
   }
 
