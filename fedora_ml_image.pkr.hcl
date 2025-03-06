@@ -17,8 +17,8 @@ source "amazon-ebs" "fedora" {
   ssh_timeout   = "20m"
 
   launch_block_device_mappings {
-    device_name = "/dev/sda1"  // This is the typical root device for Fedora AMIs
-    volume_size = 20           // Increase this to a larger value like 20GB or more
+    device_name = "/dev/sda1"
+    volume_size = 80
     volume_type = "gp3"
     delete_on_termination = true
   }
